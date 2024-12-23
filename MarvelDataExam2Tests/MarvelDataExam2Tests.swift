@@ -1,36 +1,63 @@
-//
-//  MarvelDataExam2Tests.swift
-//  MarvelDataExam2Tests
-//
-//  Created by Pablo on 20-12-24.
-//
-
 import XCTest
 @testable import MarvelDataExam2
 
 final class MarvelDataExam2Tests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testHeroDetailLocalInitialization() {
+        let identifier = UUID()
+        let nombre = "Spider-Man"
+        let primeraAparicion = "Amazing Fantasy #15"
+        let imagen = "https://example.com/spiderman.png"
+        let createdAt = Date()
+        
+        let hero = HeroDetailLocal(
+            identifier: identifier,
+            nombre: nombre,
+            primeraAparicion: primeraAparicion,
+            imagen: imagen,
+            createdAt: createdAt
+        )
+        
+        XCTAssertEqual(hero.identifier, identifier)
+        XCTAssertEqual(hero.nombre, nombre)
+        XCTAssertEqual(hero.primeraAparicion, primeraAparicion)
+        XCTAssertEqual(hero.imagen, imagen)
+        XCTAssertEqual(hero.createdAt, createdAt)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testHeroDetailLocalGetPrimeraAparicion() {
+        let heroWithPrimeraAparicion = HeroDetailLocal(
+            nombre: "Iron Man",
+            primeraAparicion: "Tales of Suspense #39",
+            imagen: nil,
+            createdAt: Date()
+        )
+        XCTAssertEqual(heroWithPrimeraAparicion.getPrimeraAparicion, "Tales of Suspense #39")
+        
+        let heroWithoutPrimeraAparicion = HeroDetailLocal(
+            nombre: "Thor",
+            primeraAparicion: nil,
+            imagen: nil,
+            createdAt: Date()
+        )
+        XCTAssertEqual(heroWithoutPrimeraAparicion.getPrimeraAparicion, "")
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testHeroDetailLocalGetImagen() {
+        let heroWithImagen = HeroDetailLocal(
+            nombre: "Captain America",
+            primeraAparicion: nil,
+            imagen: "https://example.com/captainamerica.png",
+            createdAt: Date()
+        )
+        XCTAssertEqual(heroWithImagen.getImagen, "https://example.com/captainamerica.png")
+        
+        let heroWithoutImagen = HeroDetailLocal(
+            nombre: "Hulk",
+            primeraAparicion: nil,
+            imagen: nil,
+            createdAt: Date()
+        )
+        XCTAssertEqual(heroWithoutImagen.getImagen, "")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
